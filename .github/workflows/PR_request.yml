@@ -1,0 +1,18 @@
+name: PR Request
+
+on:
+    workflow_dispatch:
+    pull_request:
+
+jobs:
+    runs-on: ubuntu-latest
+    steps: 
+        - name: PR Details
+          run : |
+         gh pr view --json number,baseRefName
+         gh pr view 42 --json number,baseRefName
+         echo "GateKeeper checks complete"
+
+    
+             
+
