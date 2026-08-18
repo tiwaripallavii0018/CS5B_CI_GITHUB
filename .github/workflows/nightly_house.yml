@@ -1,0 +1,21 @@
+name: House Request
+
+on:
+    workflow_dispatch:
+    schedule:
+            - cron: '0 2 * * *'
+
+
+
+jobs:
+    house-request:
+         runs-on: ubuntu-latest
+         steps: 
+             - name: PR Details
+               run : |
+                date
+                echo "Running nightly cleanup "
+                echo "HouseKeeping complete"
+    
+             
+
