@@ -1,0 +1,24 @@
+name: Multi Trigger
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs: 
+  multi_trigger: 
+    runs-on: ubuntu-latest
+    steps:
+      - name: details of Multi Trigger
+        run: |
+          echo "Triggered by event: ${{ github.event_name }}"
+          
+          if [ "${{ github.event_name }}" = "push" ]; then
+             echo "Pushed to branch : ${{ github.ref_name }}"
+          fi
+
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+             echo "Source branch : ${{ github.head_ref }}"
+             echo "Target branch : ${{ github.base_ref }}"
+          fi
+          
+          echo "Detective work"
