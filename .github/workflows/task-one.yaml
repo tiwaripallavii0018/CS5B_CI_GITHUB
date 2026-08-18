@@ -1,19 +1,35 @@
+
 name: Tasks
 
 on: push
 
 jobs:
-    System-info: 
-        runs-on: ubuntu-latest
-        steps:
-            - name:  Print System Info
-              run: | 
-               uname -a
-               df -h
-               date
-               sudo apt-get update && sudo apt-get install -y tree
-               tree -L 2 ~
+  System-info:
+    runs-on: ubuntu-latest
 
+    steps:
+      - name: Print System Info
+        run: |
+          uname -a
+          df -h
+          date
+          sudo apt-get update
+          sudo apt-get install -y tree
+          tree -L 2 ~
+
+      - name: Tool Check
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y jq
+
+          echo '{"language": "Bash", "type": "JSON", "version": "1.0"}' > report.json
+
+          jq '.' report.json
+          python3 --version | cut -d' ' -f2
+          git --version | cut -d' ' -f3
+          jq --version
+
+          echo "Report complete"
 
 
                    
