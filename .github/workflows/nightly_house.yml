@@ -13,7 +13,7 @@ jobs:
          steps: 
              - name: PR Details
                run : |
-                date
+                echo "Date and time ${date -u}"
                 echo "Running nightly cleanup "
                 echo "HouseKeeping complete"
     
