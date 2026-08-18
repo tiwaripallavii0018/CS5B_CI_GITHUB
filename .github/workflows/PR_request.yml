@@ -5,14 +5,15 @@ on:
     pull_request:
 
 jobs:
-    runs-on: ubuntu-latest
-    steps: 
-        - name: PR Details
-          run : |
-         gh pr view --json number,baseRefName
-         gh pr view 42 --json number,baseRefName
-         echo "GateKeeper checks complete"
-
+    pr-request:
+         runs-on: ubuntu-latest
+         steps: 
+             - name: PR Details
+               run : |
+                echo "PR NO. : {{github.event.pull_request.number}}";
+                echo "Target Branch :{{github.event.pull_request.base.ref}} "
+                echo "Source Branch :{{github.event.pull_request.head.ref}} "
+                echo "GateKeeper checks complete"
     
              
 
