@@ -1,0 +1,29 @@
+name: Python inspector
+
+on:
+  workflow_dispatch:
+  push:
+
+jobs:
+  Python_inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Repository checkout
+        uses: actions/checkout@v4
+
+      - name: Install latest python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Print python version
+        run: python --version
+
+      - name: Print pip version
+        run: pip --version
+
+      - name: Print location
+        run: which python
+
+      - name: Last comment
+        run: echo "Inspection complete"
