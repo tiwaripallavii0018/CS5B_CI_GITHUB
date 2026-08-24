@@ -93,14 +93,14 @@ jobs:
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
-          node-version: 24
+          node-version: 20
 
       - name: Install dependencies
-        working-directory: app
+        working-directory: react-app
         run: npm install
 
       - name: Run tests
-        working-directory: app
+        working-directory: react-app
         run: npm test
 
   scan:
