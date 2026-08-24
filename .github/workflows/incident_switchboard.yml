@@ -54,9 +54,11 @@ jobs:
   # JOB 1: TRIAGE
   # ==========================================
   triage:
+    name: Triage
     runs-on: ubuntu-latest
 
     steps:
+
       - name: Print run information
         run: |
           echo "Event: ${{ github.event_name }}"
@@ -97,16 +99,22 @@ jobs:
   # JOB 2: TESTS
   # ==========================================
   tests:
+    name: Tests
     needs: triage
     runs-on: ubuntu-latest
 
-    # Manual runs can skip tests.
-    # Push and pull request runs always run tests.
+    # Manual run:
+    #   skip_tests = true  -> skip
+    #   skip_tests = false -> run
+    #
+    # Push / Pull Request:
+    #   always run tests
     if: |
       github.event_name != 'workflow_dispatch' ||
       !inputs.skip_tests
 
     steps:
+
       - name: Checkout repository
         uses: actions/checkout@v5
 
@@ -128,24 +136,26 @@ jobs:
   # JOB 3: SCAN
   # ==========================================
   scan:
+    name: Scan
     needs: triage
     runs-on: ubuntu-latest
 
-    # Scan runs when:
-    # 1. Deep scan is requested
+    # Run scan when:
+    # - deep_scan is true
     # OR
-    # 2. Severity is high
+    # - severity is high
     if: |
       github.event_name == 'workflow_dispatch' &&
       (inputs.deep_scan || inputs.severity == 'high')
 
     steps:
+
       - name: Install jq
         run: |
           sudo apt-get update
           sudo apt-get install -y jq
 
-      - name: Create scan data
+      - name: Create scan.json
         env:
           SEVERITY: ${{ inputs.severity }}
           DEEP_SCAN: ${{ inputs.deep_scan }}
@@ -165,7 +175,7 @@ jobs:
           echo "Created scan.json:"
           cat scan.json
 
-      - name: Read scan values
+      - name: Read values using jq
         run: |
           echo "Severity: $(jq -r '.severity' scan.json)"
           echo "Run number: $(jq -r '.run_number' scan.json)"
@@ -175,14 +185,15 @@ jobs:
   # JOB 4: REPORT
   # ==========================================
   report:
+    name: Report
     needs:
       - tests
       - scan
 
     runs-on: ubuntu-latest
 
-    # Run even if tests or scan
-    # failed or were skipped.
+    # Report always runs, even if
+    # tests or scan failed/skipped.
     if: always()
 
     steps:
@@ -212,7 +223,7 @@ jobs:
           TESTS="${{ needs.tests.result }}"
           SCAN="${{ needs.scan.result }}"
 
-          if { [ "$TESTS" = "success" ] || [ "$TESTS" = "skipped" ]; } &&
+          if { [ "$TESTS" = "success" ] || [ "$TESTS" = "skipped" ]; } && \
              { [ "$SCAN" = "success" ] || [ "$SCAN" = "skipped" ]; }
           then
             echo "Everything that ran was successful."
