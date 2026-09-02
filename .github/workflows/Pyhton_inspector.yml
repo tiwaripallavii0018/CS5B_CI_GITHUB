@@ -2,7 +2,7 @@ name: Python inspector
 
 on:
   workflow_dispatch:
-  push:
+  # push:
 
 jobs:
   Python_inspect:

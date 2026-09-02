@@ -2,10 +2,10 @@ name : Workflow Event
 
 on :
     workflow_dispatch:
-    push:
-    pull_request:
-    schedule: 
-        - cron: '*/5 * * * *'
+    # push:
+    # pull_request:
+    # schedule: 
+    #     - cron: '*/5 * * * *'
     
 
 jobs:
