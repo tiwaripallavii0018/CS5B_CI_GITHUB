@@ -1,21 +1,21 @@
-name: House Request
+# name: House Request
 
-on:
-    workflow_dispatch:
-    schedule:
-            - cron: '0 2 * * *'
+# on:
+#     workflow_dispatch:
+#     schedule:
+#             - cron: '0 2 * * *'
 
 
 
-jobs:
-    house-request:
-         runs-on: ubuntu-latest
-         steps: 
-             - name: PR Details
-               run : |
-                echo "Date and time ${date -u}"
-                echo "Running nightly cleanup "
-                echo "HouseKeeping complete"
+# jobs:
+#     house-request:
+#          runs-on: ubuntu-latest
+#          steps: 
+#              - name: PR Details
+#                run : |
+#                 echo "Date and time ${date -u}"
+#                 echo "Running nightly cleanup "
+#                 echo "HouseKeeping complete"
     
              
 

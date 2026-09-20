@@ -1,19 +1,19 @@
-name: Building Blocks
+# name: Building Blocks
 
-on: workflow_dispatch
+# on: workflow_dispatch
 
-jobs:
-    echo-hello: 
-        runs-on: ubuntu-latest
-        steps:
-            - name: Say hello
-              run: echo "hello, world"
+# jobs:
+#     echo-hello: 
+#         runs-on: ubuntu-latest
+#         steps:
+#             - name: Say hello
+#               run: echo "hello, world"
     
-    echo-goodbye: 
-        runs-on: ubuntu-latest
-        steps: 
-            - name: Failed Step
-              run: | #| is used for multiple commands ..exit 1 -> code failed ...will skip the next step
-                echo "This step will fail" 
-            - name: Say goodbye
-              run: echo "Goodbye, World!"
+#     echo-goodbye: 
+#         runs-on: ubuntu-latest
+#         steps: 
+#             - name: Failed Step
+#               run: | #| is used for multiple commands ..exit 1 -> code failed ...will skip the next step
+#                 echo "This step will fail" 
+#             - name: Say goodbye
+#               run: echo "Goodbye, World!"
